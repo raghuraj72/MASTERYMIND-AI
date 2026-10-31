@@ -1,0 +1,202 @@
+[
+  {
+    "id": "BENCH_01",
+    "concept_code": "ELC_OHMS_LAW",
+    "question_type": "mcq",
+    "student_answer": "A",
+    "is_correct": false,
+    "reasoning_text": "Since V=IR, resistance increases when current increases to balance voltage.",
+    "expected_misconception": "MISC_OHM_R_I_CONFUSION",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_02",
+    "concept_code": "ELC_POTENTIAL_DIFF",
+    "question_type": "mcq",
+    "student_answer": "C",
+    "is_correct": false,
+    "reasoning_text": "The battery sends 12 volts of current flowing through the wire.",
+    "expected_misconception": "MISC_CURRENT_VOLTAGE_CONFUSION",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_03",
+    "concept_code": "ELC_SERIES_CIRCUIT",
+    "question_type": "mcq",
+    "student_answer": "A",
+    "is_correct": false,
+    "reasoning_text": "Current is used up by the first bulb so less current reaches the second bulb.",
+    "expected_misconception": "MISC_SERIES_CURRENT_CONSUMPTION",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_04",
+    "concept_code": "ELC_PARALLEL_CIRCUIT",
+    "question_type": "numerical",
+    "student_answer": "12",
+    "is_correct": false,
+    "reasoning_text": "Two 6 ohm resistors in parallel give total resistance = 6 + 6 = 12 ohms because parallel resistance is sum of resistances.",
+    "expected_misconception": "MISC_PARALLEL_RESISTANCE_SUM",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_05",
+    "concept_code": "ELC_POWER_ENERGY",
+    "question_type": "numerical",
+    "student_answer": "100",
+    "is_correct": false,
+    "reasoning_text": "Power and energy are the same thing, so 100 watts equals 100 joules per day.",
+    "expected_misconception": "MISC_POWER_ENERGY_UNITS",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_06",
+    "concept_code": "LGT_SIGN_CONVENTION",
+    "question_type": "numerical",
+    "student_answer": "20",
+    "is_correct": false,
+    "reasoning_text": "The object is placed in front of concave mirror, so object distance u is positive 20 cm.",
+    "expected_misconception": "MISC_SIGN_CONVENTION_MIRROR",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_07",
+    "concept_code": "LGT_RAY_DIAGRAMS_MIRROR",
+    "question_type": "mcq",
+    "student_answer": "A",
+    "is_correct": false,
+    "reasoning_text": "Virtual image can be captured on a screen placed behind the mirror.",
+    "expected_misconception": "MISC_REAL_VIRTUAL_CONFUSION",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_08",
+    "concept_code": "LGT_REFR_INDEX",
+    "question_type": "mcq",
+    "student_answer": "A",
+    "is_correct": false,
+    "reasoning_text": "Diamond has higher refractive index so light travels faster in glass and diamond.",
+    "expected_misconception": "MISC_REFRACTIVE_INDEX_INVERSION",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_09",
+    "concept_code": "LGT_POWER_LENS",
+    "question_type": "mcq",
+    "student_answer": "C",
+    "is_correct": false,
+    "reasoning_text": "f is 20 cm so P = 1/20 = 0.05 D because P = 1/f without converting cm to m.",
+    "expected_misconception": "MISC_LENS_POWER_UNITS",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_10",
+    "concept_code": "EYE_ATM_REFRACTION",
+    "question_type": "mcq",
+    "student_answer": "A",
+    "is_correct": false,
+    "reasoning_text": "Stars twinkle due to scattering of starlight by atmospheric particles.",
+    "expected_misconception": "MISC_ATM_SCATTERING_REFRACTION",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_11",
+    "concept_code": "MAG_FIELD_LINES",
+    "question_type": "mcq",
+    "student_answer": "A",
+    "is_correct": false,
+    "reasoning_text": "Magnetic field lines go from south to north outside the magnet.",
+    "expected_misconception": "MISC_MAGNETIC_FIELD_DIRECTION",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_12",
+    "concept_code": "MAG_FORCE_FLEMING_LEFT",
+    "question_type": "mcq",
+    "student_answer": "B",
+    "is_correct": false,
+    "reasoning_text": "Use Fleming's right hand rule for electric motor rotation direction.",
+    "expected_misconception": "MISC_FLEMING_RULES_SWAP",
+    "expected_error_type": "conceptual_misconception"
+  },
+  {
+    "id": "BENCH_13",
+    "concept_code": "ELC_CHARGE_CURRENT",
+    "question_type": "numerical",
+    "student_answer": "5",
+    "is_correct": false,
+    "reasoning_text": "I used minutes instead of converting to seconds, so got 5 C instead of 300 C.",
+    "expected_misconception": null,
+    "expected_error_type": "unit_error"
+  },
+  {
+    "id": "BENCH_14",
+    "concept_code": "ELC_PARALLEL_CIRCUIT",
+    "question_type": "numerical",
+    "student_answer": "7.9",
+    "is_correct": false,
+    "reasoning_text": "Conceptual approach was correct, just made a small arithmetic slip in long division.",
+    "expected_misconception": null,
+    "expected_error_type": "careless_mistake"
+  },
+  {
+    "id": "BENCH_15",
+    "concept_code": "LGT_MIRROR_FORMULA",
+    "question_type": "numerical",
+    "student_answer": "45",
+    "is_correct": false,
+    "reasoning_text": "I don't know how to solve this at all, guessed a random number.",
+    "expected_misconception": null,
+    "expected_error_type": "insufficient_evidence"
+  },
+  {
+    "id": "BENCH_16",
+    "concept_code": "ELC_OHMS_LAW",
+    "question_type": "mcq",
+    "student_answer": "D",
+    "is_correct": false,
+    "reasoning_text": "Just clicked option D because time ran out.",
+    "expected_misconception": null,
+    "expected_error_type": "insufficient_evidence"
+  },
+  {
+    "id": "BENCH_17",
+    "concept_code": "ELC_OHMS_LAW",
+    "question_type": "mcq",
+    "student_answer": "B",
+    "is_correct": true,
+    "reasoning_text": "The slope of V-I graph is constant resistance R because V = IR for ohmic conductors.",
+    "expected_misconception": null,
+    "expected_error_type": "sound_reasoning"
+  },
+  {
+    "id": "BENCH_18",
+    "concept_code": "LGT_POWER_LENS",
+    "question_type": "mcq",
+    "student_answer": "B",
+    "is_correct": true,
+    "reasoning_text": "Focal length is -0.2 m for concave lens, so power is 1/(-0.2) = -5 Dioptres.",
+    "expected_misconception": null,
+    "expected_error_type": "sound_reasoning"
+  },
+  {
+    "id": "BENCH_19",
+    "concept_code": "EYE_PRISM_DISPERSION",
+    "question_type": "mcq",
+    "student_answer": "C",
+    "is_correct": true,
+    "reasoning_text": "Red bends least because of its longest wavelength and lowest refractive index in glass.",
+    "expected_misconception": null,
+    "expected_error_type": "sound_reasoning"
+  },
+  {
+    "id": "BENCH_20",
+    "concept_code": "MAG_FIELD_LINES",
+    "question_type": "mcq",
+    "student_answer": "B",
+    "is_correct": true,
+    "reasoning_text": "Outside bar magnet, field lines always emerge from North and enter South pole.",
+    "expected_misconception": null,
+    "expected_error_type": "sound_reasoning"
+  }
+]

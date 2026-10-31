@@ -1,0 +1,26 @@
+{
+  "benchmark_dataset_size": 20,
+  "misconception_precision": 0.8462,
+  "misconception_recall": 0.9167,
+  "misconception_f1": 0.88,
+  "unsupported_diagnosis_rate": 0.0,
+  "bkt_growth_monotonic": true,
+  "bkt_growth_trajectory": [
+    0.754,
+    0.973,
+    0.98,
+    0.98,
+    0.98
+  ],
+  "bkt_decay_monotonic": true,
+  "bkt_decay_trajectory": [
+    0.488,
+    0.206,
+    0.093,
+    0.063,
+    0.056
+  ],
+  "prerequisite_unblocking_pass": true,
+  "average_latency_ms": 0.254,
+  "test_timestamp": "2026-10-31T18:59:38Z"
+}
