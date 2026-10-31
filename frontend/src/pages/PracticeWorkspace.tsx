@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../services/api';
-import { Question, PracticeSubmitResponse } from '../types';
+import { Question, PracticeSubmitResponse, MasteryEventHistoryItem } from '../types';
 import { MisconceptionAlert } from '../components/MisconceptionAlert';
 import { AdaptiveReasonPill } from '../components/AdaptiveReasonPill';
 import {
@@ -14,7 +14,10 @@ import {
   RotateCcw,
   BookOpen,
   Send,
-  Loader2
+  Loader2,
+  Clock,
+  ShieldCheck,
+  Brain
 } from 'lucide-react';
 
 interface PracticeWorkspaceProps {
@@ -36,11 +39,13 @@ export const PracticeWorkspace: React.FC<PracticeWorkspaceProps> = ({
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submissionResult, setSubmissionResult] = useState<PracticeSubmitResponse | null>(null);
   const [activeMisconception, setActiveMisconception] = useState<any | null>(null);
+  const [conceptHistory, setConceptHistory] = useState<MasteryEventHistoryItem[]>([]);
 
   const fetchNextAdaptiveQuestion = async (targetConcept?: string) => {
     setLoadingQuestion(true);
     setSubmissionResult(null);
     setActiveMisconception(null);
+    setConceptHistory([]);
     setStudentAnswer('');
     setReasoningText('');
     setConfidenceLevel('somewhat_sure');
@@ -78,6 +83,15 @@ export const PracticeWorkspace: React.FC<PracticeWorkspaceProps> = ({
       setSubmissionResult(res);
       if (res.has_misconception && res.misconception) {
         setActiveMisconception(res.misconception);
+      }
+
+      // Fetch updated history for this concept
+      try {
+        const history = await api.getMasteryHistory();
+        const forConcept = history.filter((h) => h.concept_code === res.concept_code);
+        setConceptHistory(forConcept.slice(0, 5));
+      } catch (err) {
+        console.error('Failed to fetch concept history', err);
       }
     } catch (err) {
       console.error('Submission failed', err);
@@ -118,7 +132,7 @@ export const PracticeWorkspace: React.FC<PracticeWorkspaceProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-white py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0b0f19] text-white py-8 px-4 sm:px-6 lg:px-8 selection:bg-violet-500 selection:text-white">
       <div className="max-w-3xl mx-auto space-y-6">
         {/* Adaptive Rationale Pill */}
         <AdaptiveReasonPill reason={selectionReason} factors={selectionFactors} />
@@ -201,7 +215,7 @@ export const PracticeWorkspace: React.FC<PracticeWorkspaceProps> = ({
             {(currentQuestion.question_type === 'numerical' || currentQuestion.question_type === 'short_answer') && (
               <div>
                 <label className="text-xs font-semibold text-slate-400 block mb-2">
-                  Enter your answer:
+                  Enter your numerical answer:
                 </label>
                 <input
                   type="text"
@@ -218,7 +232,7 @@ export const PracticeWorkspace: React.FC<PracticeWorkspaceProps> = ({
             {!submissionResult && (
               <div>
                 <span className="text-xs font-semibold text-slate-400 block mb-2">
-                  Confidence Rating:
+                  Confidence Rating (Modulates Bayesian Guess & Slip Parameters):
                 </span>
                 <div className="grid grid-cols-3 gap-2">
                   {[
@@ -254,7 +268,7 @@ export const PracticeWorkspace: React.FC<PracticeWorkspaceProps> = ({
                   rows={2}
                   value={reasoningText}
                   onChange={(e) => setReasoningText(e.target.value)}
-                  placeholder="Explain why you picked this answer (e.g., 'Since voltage is constant, increasing current increases resistance...')"
+                  placeholder="Explain why you picked this answer (e.g., 'Since voltage is constant, increasing current increases resistance according to Ohm law...')"
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 leading-relaxed"
                 />
               </div>
@@ -307,6 +321,21 @@ export const PracticeWorkspace: React.FC<PracticeWorkspaceProps> = ({
                 </p>
               </div>
 
+              {/* Misconception Alert if Present */}
+              {activeMisconception ? (
+                <MisconceptionAlert
+                  misconception={activeMisconception}
+                  onDismiss={() => setActiveMisconception(null)}
+                />
+              ) : (
+                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-400 flex items-center gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span>
+                    <strong>Reasoning Analysis:</strong> No structured misconception patterns detected in your written explanation. Evaluated cleanly against known CBSE Class 10 physics misconceptions without speculative labeling.
+                  </span>
+                </div>
+              )}
+
               {/* BKT Mastery Update Card */}
               <div className="bg-gradient-to-r from-slate-950 to-indigo-950/40 p-4 rounded-2xl border border-indigo-500/30 flex items-center justify-between">
                 <div>
@@ -331,12 +360,32 @@ export const PracticeWorkspace: React.FC<PracticeWorkspaceProps> = ({
                 </div>
               </div>
 
-              {/* Misconception Alert if Present */}
-              {activeMisconception && (
-                <MisconceptionAlert
-                  misconception={activeMisconception}
-                  onDismiss={() => setActiveMisconception(null)}
-                />
+              {/* Mini Concept Mastery Timeline */}
+              {conceptHistory.length > 0 && (
+                <div className="p-4 rounded-2xl bg-slate-950/90 border border-slate-800">
+                  <span className="text-xs font-bold uppercase text-slate-400 tracking-wider block mb-3">
+                    Concept Mastery Evolution Timeline ({submissionResult.concept_name})
+                  </span>
+                  <div className="space-y-2">
+                    {conceptHistory.map((item, idx) => (
+                      <div
+                        key={item.id || idx}
+                        className="text-xs flex items-center justify-between text-slate-400 border-b border-slate-800/60 pb-1.5 last:border-b-0"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+                          <span className="truncate max-w-xs">{item.reason_explanation}</span>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="font-bold text-white">{Math.round(item.new_mastery * 100)}%</span>
+                          <span className={item.delta >= 0 ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
+                            ({item.delta >= 0 ? `+${Math.round(item.delta * 100)}%` : `${Math.round(item.delta * 100)}%`})
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
 
               {/* Next Step Recommendation */}

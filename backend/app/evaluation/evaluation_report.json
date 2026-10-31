@@ -21,6 +21,6 @@
     0.056
   ],
   "prerequisite_unblocking_pass": true,
-  "average_latency_ms": 0.254,
-  "test_timestamp": "2026-10-31T18:59:38Z"
+  "average_latency_ms": 0.122,
+  "test_timestamp": "2026-10-31T19:29:38Z"
 }

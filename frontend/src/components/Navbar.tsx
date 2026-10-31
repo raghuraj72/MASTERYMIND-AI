@@ -13,15 +13,17 @@ import {
   UserCheck,
   ChevronDown,
   Sparkles,
-  BookOpen
+  BookOpen,
+  Play
 } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: string;
   onSelectTab: (tab: string) => void;
+  onReopenIntro?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab, onReopenIntro }) => {
   const { user, logout, quickLogin, isTeacher } = useAuth();
   const [showDemoMenu, setShowDemoMenu] = useState(false);
 
@@ -181,8 +183,19 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab }) => {
             </button>
           </div>
 
-          {/* Right actions: Demo Switcher + Profile */}
-          <div className="flex items-center gap-3">
+          {/* Right actions: Intro + Demo Switcher + Profile */}
+          <div className="flex items-center gap-2.5">
+            {onReopenIntro && (
+              <button
+                onClick={onReopenIntro}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-bold text-violet-300 bg-violet-600/20 hover:bg-violet-600/30 border border-violet-500/40 transition-colors shadow-sm"
+                title="Watch Cinematic Introduction"
+              >
+                <Play className="w-3 h-3 text-cyan-400 fill-cyan-400" />
+                <span>Intro</span>
+              </button>
+            )}
+
             {/* Quick Demo Switcher Pill */}
             <div className="relative">
               <button

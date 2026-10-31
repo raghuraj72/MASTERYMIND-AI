@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
+import { CinematicIntro } from './components/CinematicIntro';
 import { LandingPage } from './pages/LandingPage';
 import { AuthPage } from './pages/AuthPage';
 import { OnboardingPage } from './pages/OnboardingPage';
@@ -20,6 +21,43 @@ const AppContent: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<string>('landing');
   const [authRole, setAuthRole] = useState<'student' | 'teacher'>('student');
   const [practiceConceptCode, setPracticeConceptCode] = useState<string | undefined>(undefined);
+
+  // Check if intro should be shown on initial session visit
+  const [showIntro, setShowIntro] = useState<boolean>(() => {
+    try {
+      const dismissed = localStorage.getItem('masterymind_intro_dismissed');
+      const seenSession = sessionStorage.getItem('masterymind_intro_seen');
+      return !dismissed && !seenSession;
+    } catch {
+      return false;
+    }
+  });
+
+  // Handle intro completion
+  const handleIntroComplete = (target: 'start' | 'how-it-works') => {
+    setShowIntro(false);
+    if (target === 'start') {
+      if (user) {
+        setCurrentTab(isTeacher ? 'teacher-dashboard' : 'student-dashboard');
+      } else {
+        setAuthRole('student');
+        setCurrentTab('auth');
+      }
+    } else {
+      setCurrentTab('landing');
+    }
+  };
+
+  // If cinematic intro is active
+  if (showIntro) {
+    return (
+      <CinematicIntro
+        onStart={() => handleIntroComplete('start')}
+        onExploreHowItWorks={() => handleIntroComplete('how-it-works')}
+        onClose={() => setShowIntro(false)}
+      />
+    );
+  }
 
   // If user is not logged in
   if (!user) {
@@ -47,6 +85,7 @@ const AppContent: React.FC = () => {
           setAuthRole(role);
           setCurrentTab('auth');
         }}
+        onWatchIntro={() => setShowIntro(true)}
       />
     );
   }
@@ -58,7 +97,11 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0b0f19] text-white flex flex-col font-sans">
-      <Navbar currentTab={currentTab} onSelectTab={setCurrentTab} />
+      <Navbar
+        currentTab={currentTab}
+        onSelectTab={setCurrentTab}
+        onReopenIntro={() => setShowIntro(true)}
+      />
 
       <main className="flex-1">
         {/* Student Views */}

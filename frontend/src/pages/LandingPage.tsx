@@ -11,16 +11,18 @@ import {
   BookOpen,
   Users,
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  Play
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface LandingPageProps {
   onStart: () => void;
   onExploreDemo: (role: 'student' | 'teacher') => void;
+  onWatchIntro?: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onExploreDemo }) => {
+export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onExploreDemo, onWatchIntro }) => {
   return (
     <div className="min-h-screen bg-[#0b0f19] text-white selection:bg-violet-500 selection:text-white">
       {/* Hero Section */}
@@ -65,6 +67,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onExploreDemo
               <Users className="w-5 h-5 text-cyan-400" />
               Teacher Analytics Workspace
             </button>
+            {onWatchIntro && (
+              <button
+                onClick={onWatchIntro}
+                className="w-full sm:w-auto px-6 py-3.5 bg-slate-900/90 hover:bg-slate-800 text-violet-300 border border-violet-500/30 rounded-xl font-bold flex items-center justify-center gap-2 transition-all"
+              >
+                <Play className="w-4 h-4 text-cyan-400 fill-cyan-400" />
+                Watch Cinematic Intro
+              </button>
+            )}
           </div>
 
           {/* Key metrics / claims */}
